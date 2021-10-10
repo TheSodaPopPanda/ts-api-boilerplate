@@ -34,8 +34,8 @@
   },
   "scripts": {
     "test": "jest --watchAll",
-    "build": "tsc",
-    "start": "set NODE_ENV=production & node-dev ./build ",
+    "build": "tsc --watch",
+    "start": "set NODE_ENV=production & tsc & node ./build ",
     "dev": "set NODE_ENV=development & node-dev ./build"
   },
   "author": "",

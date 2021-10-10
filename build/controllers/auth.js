@@ -29,6 +29,8 @@ const createSession = (userData, res) => {
     });
 };
 const loginUser = (data, req, res) => {
+    console.log("loginUser data");
+    console.log(data);
     users.findOne({ email: data.email })
         .then((result) => {
         if (result) {
@@ -64,7 +66,8 @@ const logoutUser = (data, req, res) => {
 };
 exports.logoutUser = logoutUser;
 const registerUser = (data, req, res) => {
-    users.findOne({ email: data.email }, (result) => {
+    users.findOne({ email: data.email })
+        .then((result) => {
         if (result) {
             res.status(400).send({ error: "an account with that email already exists" });
         }
@@ -82,6 +85,9 @@ const registerUser = (data, req, res) => {
                 res.status(500).send({ error: "Unknown error occurred", debug: err.toString() });
             });
         }
+    })
+        .catch((err) => {
+        res.status(500).send({ error: "Unknown error occurred", debug: err.toString() });
     });
 };
 exports.registerUser = registerUser;

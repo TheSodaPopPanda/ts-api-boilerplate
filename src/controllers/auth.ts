@@ -46,7 +46,8 @@ const createSession = (userData:IUser, res:Response) => {
 
 
 export const loginUser = (data:IUser, req: Request, res: Response) => {
-
+  console.log("loginUser data")
+  console.log(data)
   users.findOne({email: data.email})
   .then((result:IUser)=>{
     if(result){
@@ -84,8 +85,8 @@ export const logoutUser = (data:{session_token: string}, req: Request, res: Resp
 
 
 export const registerUser = (data:IUser, req: Request, res: Response) => {
-
-  users.findOne({email: data.email},(result:IUser)=>{
+  users.findOne({email: data.email})
+  .then((result:any)=>{
     if(result){
       res.status(400).send({error:"an account with that email already exists"})
     }else{
@@ -102,5 +103,8 @@ export const registerUser = (data:IUser, req: Request, res: Response) => {
           res.status(500).send({error: "Unknown error occurred", debug:err.toString()})
       })
     }
+  })
+  .catch((err:any)=>{
+    res.status(500).send({error: "Unknown error occurred", debug:err.toString()})
   })  
 }

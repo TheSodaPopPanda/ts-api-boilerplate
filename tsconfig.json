@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
-    "watch": true,
+    // "watch": true,
     // "pretty": true,
     "outDir": "build",
     "importHelpers": true,

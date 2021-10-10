@@ -12,6 +12,47 @@ describe('GET / default route responses', function() {
   });
 });
 
+describe('POST api/v1/auth/register -> Attempt to register new user', function() {
+  
+  test('register with no data', function(done) {
+    app
+      .post('/api/v1/auth/register')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(400, done);
+  });
+
+  test('register with BAD data', function(done) {
+    app
+      .post('/api/v1/auth/register')
+      .send({
+        email:"NOThelloworldgmail.com",
+        password: "1234"
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(400, done);
+  });
+
+  test('register with GOOD data', function(done) {
+    app
+      .post('/api/v1/auth/register')
+      .send({
+        username:"hello",
+        email:"helloworld@gmail.com",
+        password: "helloworld"
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect((res) => {
+        JSON.stringify(res.body) === JSON.stringify({error:'an account with that email already exists'})
+      })
+      .expect(400, done);
+      
+  });
+
+});
+
 describe('POST api/v1/auth/login -> Attempt to login', function() {
   
   test('login with no data', function(done) {
@@ -46,82 +87,4 @@ describe('POST api/v1/auth/login -> Attempt to login', function() {
       .expect(200, done);
   });
 
-});
-
-describe('POST api/v1/auth/register -> Attempt to register new user', function() {
-  
-  test('register with no data', function(done) {
-    app
-      .post('/api/v1/auth/register')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(400, done);
-  });
-
-  test('register with BAD data', function(done) {
-    app
-      .post('/api/v1/auth/register')
-      .send({
-        email:"NOThelloworldgmail.com",
-        password: "1234"
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(400, done);
-  });
-
-  test('register with GOOD data', function(done) {
-    app
-      .post('/api/v1/auth/register')
-      .send({
-        email:"helloworld@gmail.com",
-        password: "helloworld"
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(function(res) {
-        res.body.token;
-      })
-      .expect(200, done);
-  });
-
-});
-
-
-describe('POST api/v1/auth/register -> Attempt to register new user', function() {
-  
-  test('register with no data', function(done) {
-    app
-      .post('/api/v1/auth/register')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(400, done);
-  });
-
-  test('register with BAD data', function(done) {
-    app
-      .post('/api/v1/auth/register')
-      .send({
-        email:"NOThelloworldgmail.com",
-        password: "1234"
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(400, done);
-  });
-
-  test('register with GOOD data', function(done) {
-    app
-      .post('/api/v1/auth/register')
-      .send({
-        email:"helloworld@gmail.com",
-        password: "helloworld"
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(function(res) {
-        res.body.token;
-      })
-      .expect(200, done);
-  });
 });
