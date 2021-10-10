@@ -1,0 +1,7 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.mongoDb = void 0;
+const mongoose = require('mongoose');
+exports.mongoDb = mongoose.createConnection(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT || 27017}`
+// 27017}/${process.env.MONGO_DB || "default"}`
+);
