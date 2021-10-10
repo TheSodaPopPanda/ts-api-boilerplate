@@ -5,7 +5,7 @@
 	npm run dev
 
 ### TODO
-✅ Setup Logger
-🔲 Setup error & info logging
-🔲 add dockerfile
-🔲 improve readme
+- ✅ Setup Logger
+- 🔲 Setup error & info logging
+- 🔲 add dockerfile
+- 🔲 improve readme
